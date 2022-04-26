@@ -6,9 +6,11 @@ def filter_xml (infile, outfile):
     with open(infile) as instream:
         instring = instream.read()
         xml_pattern = re.compile('<[^>]*>')
-        out_string = xml_pattern.sub('',instring)
+        out_string = re.sub(xml_pattern,'',instring)
+        amp_pattern=re.compile('&[^;]*;')
+        oout_string=re.sub(amp_pattern,'',out_string)
     with open(outfile,'w') as outstream:
-        outstream.write(out_string)
+        outstream.write(oout_string)
 
 def main(args):
     infile = args[1]
@@ -17,3 +19,4 @@ def main(args):
     filter_xml(infile,outfile)
 
 sys.exit(main(sys.argv))
+
